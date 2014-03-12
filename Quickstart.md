@@ -42,7 +42,7 @@ When(mock[&SomeInterface::foo]).Throw(23_Times(exception()));
 // Always throw
 When(mock[&SomeInterface::foo]).AlwaysThrow(exception());
 ```
-Sometimes I need something more freestyle
+Nice, but sometimes I need something more freestyle
 ```C++
 // Do whatever you want using lambda expressions
 When(mock[&SomeInterface::foo]).Do([](int a)->int{ ... });
