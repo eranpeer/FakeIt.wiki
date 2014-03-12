@@ -44,7 +44,7 @@ When(mock[&SomeInterface::foo]).AlwaysThrow(exception());
 ```
 Sometimes I need something more freestyle
 ```C++
-// I.
+// Do whatever you want using lambda expressions
 When(mock[&SomeInterface::foo]).Do([](int a)->int{ ... });
 When(mock[&SomeInterface::foo]).AlwaysDo([](int a)->int{ ... });
 ```
