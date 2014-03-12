@@ -23,8 +23,28 @@ What if I want to be more specific?
 When(mock[&SomeInterface::foo].Using(1)).Return(100);
 When(mock[&SomeInterface::foo](1)).Return(100);
 
-// Stub 'foo(1)' to always return '100'. For all other calls return 0.
+// Stub 'foo(1)' to always return '100'. For all other calls always return 0.
 When(mock[&SomeInterface::foo]).AlwaysReturn(0); // Any invocation of foo will return 0
 When(mock[&SomeInterface::foo].Using(1)).AlwaysReturn(100); // override only for 'foo(1)'
-```
 
+// The next two lines do exactly the same
+When(mock[&SomeInterface::foo].Using(1)).AlwaysReturn(0);
+mock[&SomeInterface::foo].Using(1) = 0;
+```
+Can I stub a method to throw an exception?
+```C++
+// Throw once
+When(mock[&SomeInterface::foo]).Throw(exception());
+// Throw several times
+When(mock[&SomeInterface::foo]).Throw(exception(),exception());
+// Throw many times
+When(mock[&SomeInterface::foo]).Throw(23_Times(exception()));
+// Always throw
+When(mock[&SomeInterface::foo]).AlwaysThrow(exception());
+```
+Sometimes I need something more freestyle
+```C++
+// I.
+When(mock[&SomeInterface::foo]).Do([](int a)->int{ ... });
+When(mock[&SomeInterface::foo]).AlwaysDo([](int a)->int{ ... });
+```
