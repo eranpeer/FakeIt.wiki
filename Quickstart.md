@@ -1,3 +1,9 @@
+Assuming we have the following interface:
+```C++
+struct SomeInterface {
+   virtual int foo(int) = 0;
+};
+```
 ### Stubbing
 ```C++
 // Stub a method to return a value once
