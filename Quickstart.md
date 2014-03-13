@@ -2,6 +2,7 @@ Assuming we have the following interface:
 ```C++
 struct SomeInterface {
    virtual int foo(int) = 0;
+   virtual int bar(int,int) = 0;
 };
 ```
 ### Stubbing
@@ -57,8 +58,14 @@ When(mock[&SomeInterface::foo]).AlwaysDo([](int a)->int{ ... });
 ### Invocation Matching
 ```C++
 // Stub foo to return 1 only when argument 'a' is even.
-When(mock[&SomeInterface::foo].Matching([](int a){return a%2==0;})).Return(1);
+auto agrument_a_is_even = [](int a){return a%2==0;};
+When(mock[&SomeInterface::foo].Matching(agrument_a_is_even)).Return(1);
 
 // Throw exception only when argument 'a' is negative.
-When(mock[&SomeInterface::foo].Matching([](int a){return a < 0;})).Throw(exception());
+auto agrument_a_is_negative = [](int a){return a < 0;};
+When(mock[&SomeInterface::foo].Matching(agrument_a_is_negative)).Throw(exception());
+
+// Stub bar to throw exception only when argument 'a' is bigger than argument 'b'.
+auto a_is_bigger_than_b = [](int a, int b){return a > b;};
+When(mock[&SomeInterface::bar].Matching(a_is_bigger_than_b)).Throw(exception());
 ```
