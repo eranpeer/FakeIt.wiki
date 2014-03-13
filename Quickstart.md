@@ -69,3 +69,5 @@ When(mock[&SomeInterface::foo].Matching(agrument_a_is_negative)).Throw(exception
 auto a_is_bigger_than_b = [](int a, int b){return a > b;};
 When(mock[&SomeInterface::bar].Matching(a_is_bigger_than_b)).Throw(exception());
 ```
+
+### Verfication
