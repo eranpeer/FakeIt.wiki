@@ -71,3 +71,31 @@ When(mock[&SomeInterface::bar].Matching(a_is_bigger_than_b)).Throw(exception());
 ```
 
 ### Verfication
+```C++
+Mock<SomeInterface> mock;
+SomeInterface & i = mock.get();
+
+// Production code:
+i.foo(1);
+i.foo(2);
+i.foo(3);
+
+// Verify foo was invoked at least once. (The four lines do exactly the same)
+Verify(mock[&SomeInterface::foo]);
+Verify(mock[&SomeInterface::foo]).AtLeastOnce();
+Verify(mock[&SomeInterface::foo]).AtLeast(1);
+Verify(mock[&SomeInterface::foo]).AtLeast(1_Time);
+
+// Verify foo was invoked at exactly 3 times. (The next two lines do exactly the same)
+Verify(mock[&SomeInterface::foo]).Exactly(3);
+Verify(mock[&SomeInterface::foo]).Exactly(3_Times);
+
+// Verify foo(1) was invoked exactly once
+Verify(mock[&SomeInterface::foo].Using(1)).Once();
+Verify(mock[&SomeInterface::foo].Using(1)).Exactly(Once);
+```
+Wow, can I verify the order of invocations too?
+```C++
+// Verify foo(1) was invoked before foo(3)
+Verify(mock[&SomeInterface::foo].Using(1), mock[&SomeInterface::foo].Using(3));
+```
