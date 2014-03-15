@@ -125,6 +125,6 @@ Verify(mock[&SomeInterface::foo] * 2);
 // verify the actual invocation sequence contains two consecutive invocations of foo exactly once.
 Verify(mock[&SomeInterface::foo] * 2).Exactly(Once);
 
-// verify the actual invocation sequence contains an invocation of foo(1) followed by bar(1,2) exactly once.
-Verify(mock[&SomeInterface::foo].Using(1) + mock[&SomeInterface::bar].Using(1,2)).Exactly(Once);
+// verify the actual invocation sequence contains an invocation of foo(1) followed by bar(1,2) exactly twice.
+Verify(mock[&SomeInterface::foo].Using(1) + mock[&SomeInterface::bar].Using(1,2)).Exactly(2_Times);
 ```
