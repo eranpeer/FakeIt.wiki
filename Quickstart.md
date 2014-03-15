@@ -99,3 +99,29 @@ Wow, can I verify the order of invocations too?
 // Verify foo(1) was invoked before foo(3)
 Verify(mock[&SomeInterface::foo].Using(1), mock[&SomeInterface::foo].Using(3));
 ```
+What about an exact sequence? Can I verify an exact sequence of invocations?
+
+Sure, you represent a sequence in the following way:
+
+Two consecutive invocations of foo:
+mock[&SomeInterface::foo] * 2
+
+An invocation of foo followed by an invocation of bar:
+mock[&SomeInterface::foo] + mock[&SomeInterface::bar]
+
+Two consecutive invocations of foo + bar, i.e. foo + bar + foo + bar
+(mock[&SomeInterface::foo] + mock[&SomeInterface::bar]) * 2
+
+This way you can represent any sequence of invocations.
+
+To verify that a specific sequence exists in the actual invocation sequence simply write:
+```C++
+// verify the actual invocation sequence contains two consecutive invocations of foo at least once.
+Verify(mock[&SomeInterface::foo] * 2); 
+
+// verify the actual invocation sequence contains two consecutive invocations of foo exactly once.
+Verify(mock[&SomeInterface::foo] * 2).Exactly(Once);
+
+// verify the actual invocation sequence contains an invocation of foo(1) followed by bar(1,2) exactly once.
+Verify(mock[&SomeInterface::foo].Using(1) + mock[&SomeInterface::bar].Using(1,2)).Exactly(Once);
+```
