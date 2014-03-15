@@ -104,17 +104,17 @@ What about an exact sequence? Can I verify an exact sequence of invocations?
 Sure, you represent a sequence in the following way:
 
 Two consecutive invocations of foo:
-
+```C++
 mock[&SomeInterface::foo] * 2
-
+```
 An invocation of foo followed by an invocation of bar:
-
+```C++
 mock[&SomeInterface::foo] + mock[&SomeInterface::bar]
-
+```
 Two consecutive invocations of foo + bar, i.e. foo + bar + foo + bar
-
+```C++
 (mock[&SomeInterface::foo] + mock[&SomeInterface::bar]) * 2
-
+```
 This way you can represent any sequence of invocations.
 
 To verify that a specific sequence exists in the actual invocation sequence simply write:
