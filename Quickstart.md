@@ -5,7 +5,7 @@ struct SomeInterface {
    virtual int bar(int,int) = 0;
 };
 ```
-### Stubbing
+## Stubbing
 ```C++
 // Stub a method to return a value once
 When(mock[&SomeInterface::foo]).Return(1);
@@ -55,7 +55,7 @@ Nice, but sometimes I need something more freestyle
 When(mock[&SomeInterface::foo]).Do([](int a)->int{ ... });
 When(mock[&SomeInterface::foo]).AlwaysDo([](int a)->int{ ... });
 ```
-### Invocation Matching
+## Invocation Matching
 ```C++
 // Stub foo to return 1 only when argument 'a' is even.
 auto agrument_a_is_even = [](int a){return a%2==0;};
@@ -70,7 +70,7 @@ auto a_is_bigger_than_b = [](int a, int b){return a > b;};
 When(mock[&SomeInterface::bar].Matching(a_is_bigger_than_b)).Throw(exception());
 ```
 
-### Verfication
+## Verfication
 ```C++
 Mock<SomeInterface> mock;
 SomeInterface & i = mock.get();
@@ -127,4 +127,43 @@ Verify(mock[&SomeInterface::foo] * 2).Exactly(Once);
 
 // verify the actual invocation sequence contains an invocation of foo(1) followed by bar(1,2) exactly twice.
 Verify(mock[&SomeInterface::foo].Using(1) + mock[&SomeInterface::bar].Using(1,2)).Exactly(2_Times);
+```
+### Verify No Other Invocations
+```C++
+Mock<SomeInterface> mock;
+When(mock[&SomeInterface::foo]).AlwaysReturn(0);
+When(mock[&SomeInterface::bar]).AlwaysReturn(0);
+SomeInterface& i  = mock.get();
+
+// call foo twice and bar once.
+i.foo(1);
+i.foo(2);
+i.bar("some string");
+
+// verify foo(1) was called.
+Verify(mock[&SomeInterface::foo].Using(1));
+
+// Verify no other invocations of any method of mock. 
+// Will fail since foo(2) & bar("some string") are not verified yet.
+VerifyNoOtherInvocations(mock);
+
+// Verify no other invocations of method foo only.
+// Will fail since foo(2) is not verified yet.
+VerifyNoOtherInvocations(mock[&SomeInterface::foo]);
+ 
+Verify(mock[&SomeInterface::foo].Using(2));
+
+// Verify no other invocations of any method of mock. 
+// Will fail since bar("some string") is not verified yet.
+VerifyNoOtherInvocations(mock);
+
+// Verify no other invocations of method foo only.
+// Will pass since both foo(1) & foo(2) are now verified.
+VerifyNoOtherInvocations(mock[&SomeInterface::foo]);
+
+Verify(mock[&SomeInterface::bar]); // verify bar was invoked (with any arguments)
+
+// Verify no other invocations of any method of mock. 
+// Will pass since foo(1) & foo(2) & bar("some string") are now verified.
+VerifyNoOtherInvocations(mock);.
 ```
