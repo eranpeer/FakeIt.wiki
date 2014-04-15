@@ -1,7 +1,7 @@
 # Table of Contents
   * [Stubbing](#stubbing)
   * [Invocation Matching](#invocation-matching)
-  * [Chapter 3](#chapter-3)
+  * [Verification](#verification)
 
 Assuming we have the following interface:
 ```C++
@@ -75,7 +75,7 @@ auto a_is_bigger_than_b = [](int a, int b){return a > b;};
 When(mock[&SomeInterface::bar].Matching(a_is_bigger_than_b)).Throw(exception());
 ```
 
-##Verfication
+## Verfication
 ```C++
 Mock<SomeInterface> mock;
 SomeInterface & i = mock.get();
@@ -172,7 +172,7 @@ Verify(mock[&SomeInterface::bar]); // verify bar was invoked (with any arguments
 // Will pass since foo(1) & foo(2) & bar("some string") are now verified.
 VerifyNoOtherInvocations(mock);.
 ```
-##Reset Mock to Initial State
+## Reset Mock to Initial State
 In most cases you will need to reset the mock objects to the initial state before/after each test method. To do that simply add the following line for each mock object to the setup/teardown code of your tests.
 ```C++
 mock.Reset();
