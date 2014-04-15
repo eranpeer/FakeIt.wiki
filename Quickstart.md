@@ -1,3 +1,8 @@
+* [Stubbing](.##Stubbing)
+* [Invocation Matching](.##Invocation-Matching)
+* [Verification](.##Verification)
+* [Reset Mock to Initial State](.##Reset-Mock-to-Initial-State)
+
 Assuming we have the following interface:
 ```C++
 struct SomeInterface {
@@ -5,7 +10,7 @@ struct SomeInterface {
    virtual int bar(int,int) = 0;
 };
 ```
-## Stubbing
+##Stubbing
 ```C++
 // Stub a method to return a value once
 When(mock[&SomeInterface::foo]).Return(1);
@@ -55,7 +60,7 @@ Nice, but sometimes I need something more freestyle
 When(mock[&SomeInterface::foo]).Do([](int a)->int{ ... });
 When(mock[&SomeInterface::foo]).AlwaysDo([](int a)->int{ ... });
 ```
-## Invocation Matching
+##Invocation Matching
 ```C++
 // Stub foo to return 1 only when argument 'a' is even.
 auto agrument_a_is_even = [](int a){return a%2==0;};
@@ -70,7 +75,7 @@ auto a_is_bigger_than_b = [](int a, int b){return a > b;};
 When(mock[&SomeInterface::bar].Matching(a_is_bigger_than_b)).Throw(exception());
 ```
 
-## Verfication
+##Verfication
 ```C++
 Mock<SomeInterface> mock;
 SomeInterface & i = mock.get();
@@ -167,7 +172,7 @@ Verify(mock[&SomeInterface::bar]); // verify bar was invoked (with any arguments
 // Will pass since foo(1) & foo(2) & bar("some string") are now verified.
 VerifyNoOtherInvocations(mock);.
 ```
-## Reset Mock to Initial State
+##Reset Mock to Initial State
 In most cases you will need to reset the mock objects to the initial state before/after each test method. To do that simply add the following line for each mock object to the setup/teardown code of your tests.
 ```C++
 mock.Reset();
