@@ -1,6 +1,6 @@
-* [Stubbing](Quickstart#stubbing)
+* [Stubbing][]
 * [Invocation Matching](Quickstart#Invocation-Matching)
-* [Verification](Quickstart#verification)
+* [Verification][]
 * [Reset Mock to Initial State](Quickstart#Reset-Mock-to-Initial-State)
 
 Assuming we have the following interface:
