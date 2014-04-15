@@ -10,7 +10,7 @@ struct SomeInterface {
    virtual int bar(int,int) = 0;
 };
 ```
-## Stubbing <a id="stubbing"></a>
+## Stubbing
 ```C++
 // Stub a method to return a value once
 When(mock[&SomeInterface::foo]).Return(1);
@@ -60,7 +60,7 @@ Nice, but sometimes I need something more freestyle
 When(mock[&SomeInterface::foo]).Do([](int a)->int{ ... });
 When(mock[&SomeInterface::foo]).AlwaysDo([](int a)->int{ ... });
 ```
-##Invocation Matching <a id="invocation-matching"></a>
+## Invocation Matching
 ```C++
 // Stub foo to return 1 only when argument 'a' is even.
 auto agrument_a_is_even = [](int a){return a%2==0;};
