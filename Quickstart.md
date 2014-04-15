@@ -1,4 +1,4 @@
-* [Stubbing](.##Stubbing)
+* [Stubbing](Quickstart##Stubbing)
 * [Invocation Matching](.##Invocation-Matching)
 * [Verification](.##Verification)
 * [Reset Mock to Initial State](.##Reset-Mock-to-Initial-State)
