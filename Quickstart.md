@@ -10,7 +10,7 @@ struct SomeInterface {
    virtual int bar(int,int) = 0;
 };
 ```
-##Stubbing
+## Stubbing
 ```C++
 // Stub a method to return a value once
 When(mock[&SomeInterface::foo]).Return(1);
