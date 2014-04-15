@@ -1,7 +1,7 @@
-* [Stubbing][]
-* [Invocation Matching](Quickstart#Invocation-Matching)
-* [Verification][]
-* [Reset Mock to Initial State](Quickstart#Reset-Mock-to-Initial-State)
+* [Stubbing](#stubbing)
+* [Invocation Matching](#invocation-matching)
+* [Verification](#verification)
+* [Reset Mock to Initial State](#reset-mock-to-initial-state)
 
 Assuming we have the following interface:
 ```C++
