@@ -1,4 +1,3 @@
-# Table of Contents
   * [Stubbing](#stubbing)
   * [Invocation Matching](#invocation-matching)
   * [Verification](#verification)
