@@ -1,7 +1,4 @@
-* [Stubbing](#stubbing)
-* [Invocation Matching](#invocation-matching)
-* [Verification](#verification)
-* [Reset Mock to Initial State](#reset-mock-to-initial-state)
+
 
 Assuming we have the following interface:
 ```C++
@@ -177,3 +174,8 @@ In most cases you will need to reset the mock objects to the initial state befor
 ```C++
 mock.Reset();
 ```
+
+* [Stubbing](#stubbing)
+* [Invocation Matching](#invocation-matching)
+* [Verification](#verification)
+* [Reset Mock to Initial State](#reset-mock-to-initial-state)
