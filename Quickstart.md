@@ -2,7 +2,7 @@
   * [Stubbing](#stubbing)
   * [Invocation Matching](#invocation-matching)
   * [Verification](#verification)
-
+  * [Reset Mock to Initial State](#reset-mock-to-initial-state)
 Assuming we have the following interface:
 ```C++
 struct SomeInterface {
@@ -75,7 +75,7 @@ auto a_is_bigger_than_b = [](int a, int b){return a > b;};
 When(mock[&SomeInterface::bar].Matching(a_is_bigger_than_b)).Throw(exception());
 ```
 
-## Verfication
+## Verification
 ```C++
 Mock<SomeInterface> mock;
 SomeInterface & i = mock.get();
