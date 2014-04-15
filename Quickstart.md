@@ -29,7 +29,7 @@ When(mock[&SomeInterface::foo]).Return(100_Times(1), 200_Times(2));
 When(mock[&SomeInterface::foo]).AlwaysReturn(1);
 mock[&SomeInterface::foo] = 1;
 ```
-What if I want to be more specific?
+**What if I want to be more specific?**
 ```C++
 // Stub foo(1) to return the value '100' once (The next two lines do the same)
 When(mock[&SomeInterface::foo].Using(1)).Return(100);
@@ -43,7 +43,7 @@ When(mock[&SomeInterface::foo].Using(1)).AlwaysReturn(100); // override only for
 When(mock[&SomeInterface::foo].Using(1)).AlwaysReturn(0);
 mock[&SomeInterface::foo].Using(1) = 0;
 ```
-Can I stub a method to throw an exception?
+**Can I stub a method to throw an exception?**
 ```C++
 // Throw once
 When(mock[&SomeInterface::foo]).Throw(exception());
@@ -54,7 +54,7 @@ When(mock[&SomeInterface::foo]).Throw(23_Times(exception()));
 // Always throw
 When(mock[&SomeInterface::foo]).AlwaysThrow(exception());
 ```
-Nice, but sometimes I need something more freestyle
+**Nice, but sometimes I need something more freestyle**
 ```C++
 // Do whatever you want using lambda expressions
 When(mock[&SomeInterface::foo]).Do([](int a)->int{ ... });
@@ -99,12 +99,12 @@ Verify(mock[&SomeInterface::foo]).Exactly(3_Times);
 Verify(mock[&SomeInterface::foo].Using(1)).Once();
 Verify(mock[&SomeInterface::foo].Using(1)).Exactly(Once);
 ```
-Wow, can I verify the order of invocations too?
+**Wow, can I verify the order of invocations too?**
 ```C++
 // Verify foo(1) was invoked before foo(3)
 Verify(mock[&SomeInterface::foo].Using(1), mock[&SomeInterface::foo].Using(3));
 ```
-What about an exact sequence? Can I verify an exact sequence of invocations?
+**What about an exact sequence? Can I verify an exact sequence of invocations?**
 
 Sure, you represent a sequence in the following way:
 
