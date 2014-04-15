@@ -167,3 +167,8 @@ Verify(mock[&SomeInterface::bar]); // verify bar was invoked (with any arguments
 // Will pass since foo(1) & foo(2) & bar("some string") are now verified.
 VerifyNoOtherInvocations(mock);.
 ```
+## Reset Mock to Initial State
+In most cases you will need to reset the mock objects to the initial state before/after each test method. To do that simply add the following line for each mock object to the setup/teardown code of your tests.
+```C++
+mock.Reset();
+```
