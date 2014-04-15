@@ -2,6 +2,7 @@
   * [Invocation Matching](#invocation-matching)
   * [Verification](#verification)
   * [Reset Mock to Initial State](#reset-mock-to-initial-state)
+
 Assuming we have the following interface:
 ```C++
 struct SomeInterface {
