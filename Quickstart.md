@@ -78,6 +78,8 @@ When(mock[&SomeInterface::bar].Matching(a_is_bigger_than_b)).Throw(exception());
 ## Verification
 ```C++
 Mock<SomeInterface> mock;
+When(mock[&SomeInterface::foo]).AlwaysReturn(1);
+
 SomeInterface & i = mock.get();
 
 // Production code:
@@ -133,6 +135,31 @@ Verify(mock[&SomeInterface::foo] * 2).Exactly(Once);
 // verify the actual invocation sequence contains an invocation of foo(1) followed by bar(1,2) exactly twice.
 Verify(mock[&SomeInterface::foo].Using(1) + mock[&SomeInterface::bar].Using(1,2)).Exactly(2_Times);
 ```
+** Can a sequence involve more than one mock instance? **
+Sure, a sequence can involve multiple mock instances.
+```C++
+Mock<SomeInterface> mock1;
+Mock<SomeInterface> mock2;
+
+When(mock1[&SomeInterface::foo]).AlwaysReturn(0);
+When(mock2[&SomeInterface::foo]).AlwaysReturn(0);
+
+SomeInterface & i1 = mock1.get();
+SomeInterface & i2 = mock2.get();
+
+// Production code:
+i1.foo(1);
+i2.foo(1);
+i1.foo(2);
+i2.foo(2);
+i1.foo(3);
+i2.foo(3);
+
+// Verify exactly 3 occurrences of the sequence {mock1.foo(any int) + mock2.foo(any int)}.
+Verify(mock1[&SomeInterface::foo] + mock2[&SomeInterface::foo]).Exactly(3_Times);
+
+```
+  
 ### Verify No Other Invocations
 ```C++
 Mock<SomeInterface> mock;
