@@ -135,7 +135,8 @@ Verify(mock[&SomeInterface::foo] * 2).Exactly(Once);
 // verify the actual invocation sequence contains an invocation of foo(1) followed by bar(1,2) exactly twice.
 Verify(mock[&SomeInterface::foo].Using(1) + mock[&SomeInterface::bar].Using(1,2)).Exactly(2_Times);
 ```
-** Can a sequence involve more than one mock instance? **
+**Can a sequence involve more than one mock instance?**
+
 Sure, a sequence can involve multiple mock instances.
 ```C++
 Mock<SomeInterface> mock1;
