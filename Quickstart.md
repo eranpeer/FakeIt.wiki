@@ -3,6 +3,9 @@
 * [Verification](#verification)
 * [Reset Mock to Initial State](#reset-mock-to-initial-state)
 
+FakeIt is designed for simplicity and expressiveness. This design goal is achieved by using many language features of C++11 like Variadic templates, Lambda expressions & User-defined literals.
+Some of these C++11 features (like User-defined literals) are not fully supported by MS Visual Studio. If you need to compile your code with MSVC++ or you need to support both GCC & MSVC++ please refer to the [MSC++ Quickstart](Quickstart-MSC).
+
 Assuming we have the following interface:
 ```C++
 struct SomeInterface {
