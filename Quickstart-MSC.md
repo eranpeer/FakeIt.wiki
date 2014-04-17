@@ -1,3 +1,6 @@
+Some C++11 features required by FakeIt are not supported by MSVS C++ 2013. To overcome this, FakeIt also contains standard C++ alternatives that compile on both MSVS C++ 2013 and GCC 4.8.
+All of the code samples in this Quickstart can be compiled by both MSVS C++ 2013 and GCC 4.8.
+
 * [Stubbing](#stubbing)
 * [Invocation Matching](#invocation-matching)
 * [Verification](#verification)
