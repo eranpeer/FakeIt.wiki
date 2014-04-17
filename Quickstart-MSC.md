@@ -20,10 +20,10 @@ When(mock[&SomeInterface::foo]).Return(1,2,3);
 When(mock[&SomeInterface::foo]).Return(1).Return(2).Return(3);
 
 // Return the same value many times (56 in this example)
-When(mock[&SomeInterface::foo]).Return(56_Times(1));
+When(mock[&SomeInterface::foo]).Return(Times<56>::of(1));
 
 // Return many values many times (First 100 calls will return 1, next 200 calls will return 2)
-When(mock[&SomeInterface::foo]).Return(100_Times(1), 200_Times(2));
+When(mock[&SomeInterface::foo]).Return(Times<100>::of(1), Times<200>::of(2));
 
 // Always return a value (The next two lines do exactly the same)
 When(mock[&SomeInterface::foo]).AlwaysReturn(1);
@@ -50,7 +50,7 @@ When(mock[&SomeInterface::foo]).Throw(exception());
 // Throw several times
 When(mock[&SomeInterface::foo]).Throw(exception(),exception());
 // Throw many times
-When(mock[&SomeInterface::foo]).Throw(23_Times(exception()));
+When(mock[&SomeInterface::foo]).Throw(Times<23>::of(exception()));
 // Always throw
 When(mock[&SomeInterface::foo]).AlwaysThrow(exception());
 ```
@@ -91,11 +91,11 @@ i.foo(3);
 Verify(mock[&SomeInterface::foo]);
 Verify(mock[&SomeInterface::foo]).AtLeastOnce();
 Verify(mock[&SomeInterface::foo]).AtLeast(1);
-Verify(mock[&SomeInterface::foo]).AtLeast(1_Time);
+Verify(mock[&SomeInterface::foo]).AtLeast(Times<1>());
 
 // Verify foo was invoked at exactly 3 times. (The next two lines do exactly the same)
 Verify(mock[&SomeInterface::foo]).Exactly(3);
-Verify(mock[&SomeInterface::foo]).Exactly(3_Times);
+Verify(mock[&SomeInterface::foo]).Exactly(Times<3>());
 
 // Verify foo(1) was invoked exactly once
 Verify(mock[&SomeInterface::foo].Using(1)).Once();
@@ -133,7 +133,7 @@ Verify(mock[&SomeInterface::foo] * 2);
 Verify(mock[&SomeInterface::foo] * 2).Exactly(Once);
 
 // verify the actual invocation sequence contains an invocation of foo(1) followed by bar(1,2) exactly twice.
-Verify(mock[&SomeInterface::foo].Using(1) + mock[&SomeInterface::bar].Using(1,2)).Exactly(2_Times);
+Verify(mock[&SomeInterface::foo].Using(1) + mock[&SomeInterface::bar].Using(1,2)).Exactly(Times<2>());
 ```
 **Can a sequence involve more than one mock instance?**
 
@@ -157,7 +157,7 @@ i1.foo(3);
 i2.foo(3);
 
 // Verify exactly 3 occurrences of the sequence {mock1.foo(any int) + mock2.foo(any int)}.
-Verify(mock1[&SomeInterface::foo] + mock2[&SomeInterface::foo]).Exactly(3_Times);
+Verify(mock1[&SomeInterface::foo] + mock2[&SomeInterface::foo]).Exactly(Times<3>());
 
 ```
   
