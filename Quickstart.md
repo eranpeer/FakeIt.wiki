@@ -2,6 +2,7 @@
 * [Invocation Matching](#invocation-matching)
 * [Verification](#verification)
 * [Reset Mock to Initial State](#reset-mock-to-initial-state)
+* [Inheritance & Dynamic Casting](#inheritance--dynamic-casting)
 
 FakeIt is designed for simplicity and expressiveness. This design goal is achieved by using many of C++11 language features, including Variadic templates, Lambda expressions & User-defined literals and more.
 Some of these C++11 features (like User-defined literals) are not fully supported by MS Visual Studio. If you need to compile your code with MSVC++ or you need to support both GCC & MSVC++ please refer to the [MSC++ Quickstart](Quickstart-MSC).
