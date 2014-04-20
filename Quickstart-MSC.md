@@ -5,7 +5,7 @@ All of the code samples in this Quickstart can be compiled by both MSVS C++ 2013
 * [Invocation Matching](#invocation-matching)
 * [Verification](#verification)
 * [Reset Mock to Initial State](#reset-mock-to-initial-state)
-* [Inheritance & Dynamic Casting](#inheritance-&-dynamic-casting)
+* [Inheritance & Dynamic Casting](#inheritance--dynamic-casting)
 
 Assuming we have the following interface:
 ```C++
