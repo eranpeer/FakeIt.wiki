@@ -208,3 +208,45 @@ In most cases you will need to reset the mock objects to the initial state befor
 ```C++
 mock.Reset();
 ```
+## Inheritance & Dynamic Casting
+
+```C++
+struct A {
+  virtual int foo() = 0;
+};
+
+struct B : public A {
+  virtual int foo() override = 0;
+};
+
+struct C : public B
+{
+   virtual int foo() override = 0;
+};
+```
+**upcast support**
+```C++
+Mock<C> cMock;		
+When(cMock[&C::foo]).AlwaysReturn(0);
+
+C& c = cMock.get();
+B& b = c;
+A& a = b;
+
+cout << c.foo(); // prints 0
+cout << b.foo(); // prints 0
+cout << a.foo(); // prints 0
+```
+**dynamic_cast support**
+```C++
+Mock<C> cMock;
+When(cMock[&C::foo]).AlwaysReturn(0);
+
+A& a = cMock.get(); // get instance and upcast to A&
+
+B& b = dynamic_cast<B&>(a); // downcast to B&
+cout << b.foo();
+
+C& c = dynamic_cast<C&>(a); // downcast to C&
+cout << c.foo();
+```
