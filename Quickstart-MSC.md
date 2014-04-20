@@ -5,6 +5,7 @@ All of the code samples in this Quickstart can be compiled by both MSVS C++ 2013
 * [Invocation Matching](#invocation-matching)
 * [Verification](#verification)
 * [Reset Mock to Initial State](#reset-mock-to-initial-state)
+* [Inheritance & Dynamic Casting](#inheritance-&-dynamic-casting)
 
 Assuming we have the following interface:
 ```C++
@@ -245,8 +246,8 @@ When(cMock[&C::foo]).AlwaysReturn(0);
 A& a = cMock.get(); // get instance and upcast to A&
 
 B& b = dynamic_cast<B&>(a); // downcast to B&
-cout << b.foo();
+cout << b.foo(); // prints 0
 
 C& c = dynamic_cast<C&>(a); // downcast to C&
-cout << c.foo();
+cout << c.foo(); // prints 0
 ```
