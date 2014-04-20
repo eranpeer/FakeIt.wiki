@@ -240,7 +240,7 @@ cout << a.foo(); // prints 0
 ```
 **dynamic_cast support**
 ```C++
-Mock<C> cMock;
+Mock<C,B,A> cMock;
 When(cMock[&C::foo]).AlwaysReturn(0);
 
 A& a = cMock.get(); // get instance and upcast to A&
