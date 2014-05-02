@@ -204,12 +204,6 @@ Verify(mock[&SomeInterface::bar]); // verify bar was invoked (with any arguments
 // Will pass since foo(1) & foo(2) & bar("some string") are now verified.
 VerifyNoOtherInvocations(mock);.
 ```
-## Reset Mock to Initial State
-In most cases you will need to reset the mock objects to the initial state before/after each test method. To do that simply add the following line for each mock object to the setup/teardown code of your tests.
-```C++
-mock.Reset();
-```
-
 ### Verification Scoping
 Verification Scoping is the method of explicitly specifying the set of actual invocations used to verify a sequence.
 
@@ -251,7 +245,7 @@ Using(aMock).Verify(aMock[&IA::a1] + bMock[&IB::b1]);
 Using(aMock).Verify(aMock[&IA::a1] + aMock[&IA::a2]); 
 ```
 
-By default, FakeIt uses all the mock objects that are involved in the verified scenario to implicitly define the verification scope. I.E. the two following do exactly the same:
+By default, FakeIt uses all the mock objects that are involved in the verified scenario to implicitly define the verification scope. I.e. the two following lines do exactly the same:
 ```C++
 // Use all methods invocations of aMock & bMock explicitly
 Using(aMock,bMock).Verify(aMock[&IA::a1] + bMock[&IB::b1]); 
@@ -259,9 +253,13 @@ Using(aMock,bMock).Verify(aMock[&IA::a1] + bMock[&IB::b1]);
 // Use all methods invocations of aMock & bMock implicitly
 Verify(aMock[&IA::a1] + bMock[&IB::b1]); 
 ```
- 
-## Inheritance & Dynamic Casting
+## Reset Mock to Initial State
+In most cases you will need to reset the mock objects to the initial state before/after each test method. To do that simply add the following line for each mock object to the setup/teardown code of your tests.
+```C++
+mock.Reset();
+```
 
+## Inheritance & Dynamic Casting
 ```C++
 struct A {
   virtual int foo() = 0;
