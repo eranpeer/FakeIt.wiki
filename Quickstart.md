@@ -209,6 +209,57 @@ In most cases you will need to reset the mock objects to the initial state befor
 ```C++
 mock.Reset();
 ```
+
+### Verification Scoping
+Verification Scoping is the method of explicitly specifying the set of actual invocations used to verify a sequence.
+
+Assuming we have the following interfaces:
+```C++
+struct IA {
+   virtual void a1(int) = 0;
+   virtual void a2(int) = 0;
+};
+struct IB {
+   virtual void b1(int) = 0;
+   virtual void b2(int) = 0;
+};
+```
+And the following 2 mock onbjects
+```C++
+Mock<IA> aMock;
+Mock<IB> bMock;
+```
+And the production code creates the following actual invocation list
+```C++
+aMock.a1(1);
+bMock.b1(1);
+aMock.a2(1);
+bMock.b2(1);
+```
+Then
+```C++
+// Will PASS since the scenario {aMock.a1 + bMock.b1} is part of the   
+// actual list {aMock.a1 + bMock.b1 + aMock.a2 + bMock.b2} 
+Using(aMock,bMock).Verify(aMock[&IA::a1] + bMock[&IB::b1]); 
+
+// Will FAIL since the scenario {aMock.a1 + bMock.b1} is not part of the   
+// actual list {aMock.a1 + aMock.a2} 
+Using(aMock).Verify(aMock[&IA::a1] + bMock[&IB::b1]); 
+
+// Will PASS since the scenario {aMock.a1 + aMock.a2} is part of the   
+// actual list {aMock.a1 + aMock.a2}
+Using(aMock).Verify(aMock[&IA::a1] + aMock[&IA::a2]); 
+```
+
+By default, FakeIt uses all the mock objects that are involved in the verified scenario to implicitly define the verification scope. I.E. the two following do exactly the same:
+```C++
+// Use all methods invocations of aMock & bMock explicitly
+Using(aMock,bMock).Verify(aMock[&IA::a1] + bMock[&IB::b1]); 
+
+// Use all methods invocations of aMock & bMock implicitly
+Verify(aMock[&IA::a1] + bMock[&IB::b1]); 
+```
+ 
 ## Inheritance & Dynamic Casting
 
 ```C++
