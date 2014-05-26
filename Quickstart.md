@@ -218,7 +218,7 @@ struct IB {
    virtual void b2(int) = 0;
 };
 ```
-And the following 2 mock onbjects
+And the following 2 mock objects
 ```C++
 Mock<IA> aMock;
 Mock<IB> bMock;
