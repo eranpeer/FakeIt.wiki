@@ -277,7 +277,6 @@ cout << i.func1(1); // will print 10.
 cout << i.func2(1); // func2 is not stubbed.
 ```
 In general, all stubbing & verifying features work on spy objects the same way they work on mock objects.
-
 ## Reset Mock to Initial State
 In most cases you will need to reset the mock objects to the initial state before/after each test method. To do that simply add the following line for each mock object to the setup/teardown code of your tests.
 ```C++
