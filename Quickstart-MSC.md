@@ -4,6 +4,7 @@ All of the code samples in this Quickstart can be compiled by both MSVS C++ 2013
 * [Stubbing](#stubbing)
 * [Invocation Matching](#invocation-matching)
 * [Verification](#verification)
+* [Spying](#spying)
 * [Reset Mock to Initial State](#reset-mock-to-initial-state)
 * [Inheritance & Dynamic Casting](#inheritance--dynamic-casting)
 
@@ -209,6 +210,29 @@ In most cases you will need to reset the mock objects to the initial state befor
 ```C++
 mock.Reset();
 ```
+## Spying
+In some cases it is very useful to spy an existing object. FakeIt is the ONLY C++ open source mocking framework that supports spying.
+```C++
+class SomeClass {
+public:
+   virtual int func1(int arg) {
+      return arg;
+   }
+   virtual int func2(int arg) {
+      return arg;
+   }
+};
+
+SomeClass obj;
+Mock<SomeClass> spy(obj);
+
+When(spy[&SomeClass::func1]).AlwaysReturn(10); // Override to return 10
+
+SomeClass& i = spy.get();
+cout << i.func1(1); // will print 10. 
+cout << i.func2(1); // func2 is not stubbed.
+```
+In general, all stubbing & verifying features work on spy objects the same way they work on mock objects.
 ## Inheritance & Dynamic Casting
 
 ```C++
