@@ -272,8 +272,9 @@ Mock<SomeClass> spy(obj);
 
 When(spy[&SomeClass::func1]).AlwaysReturn(10); // Override to return 10
 
-cout << obj.func1(1); // will print 10. 
-cout << obj.func2(1); // func2 is not stubbed. should use original method code and print 1.
+SomeClass& i = spy.get();
+cout << i.func1(1); // will print 10. 
+cout << i.func2(1); // func2 is not stubbed.
 ```
 In general, all stubbing & verifying features work on spy objects the same way they work on mock objects.
 
