@@ -1,6 +1,7 @@
 * [Stubbing](#stubbing)
 * [Invocation Matching](#invocation-matching)
 * [Verification](#verification)
+* [Spying](#spying)
 * [Reset Mock to Initial State](#reset-mock-to-initial-state)
 * [Inheritance & Dynamic Casting](#inheritance--dynamic-casting)
 
@@ -253,12 +254,34 @@ Using(aMock,bMock).Verify(aMock[&IA::a1] + bMock[&IB::b1]);
 // Use all methods invocations of aMock & bMock implicitly
 Verify(aMock[&IA::a1] + bMock[&IB::b1]); 
 ```
+## Spying
+In some cases it is very useful to spy an existing object. FakeIt is the ONLY C++ open source mocking framework that supports spying.
+```C++
+class SomeClass {
+public:
+   virtual int func1(int arg) {
+      return arg;
+   }
+   virtual int func2(int arg) {
+      return arg;
+   }
+};
+
+SomeClass obj;
+Mock<SomeClass> spy(obj);
+
+When(spy[&SomeClass::func1]).AlwaysReturn(10); // Override to return 10
+
+cout << obj.func1(1); // will print 10. 
+cout << obj.func2(1); // func2 is not stubbed. should use original method code and print 1.
+```
+In general, all stubbing & verifying features work on spy objects the same way they work on mock objects.
+
 ## Reset Mock to Initial State
 In most cases you will need to reset the mock objects to the initial state before/after each test method. To do that simply add the following line for each mock object to the setup/teardown code of your tests.
 ```C++
 mock.Reset();
 ```
-
 ## Inheritance & Dynamic Casting
 ```C++
 struct A {
