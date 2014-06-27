@@ -17,6 +17,7 @@ struct SomeInterface {
 ```
 ## Stubbing
 ```C++
+Mock<SomeInterface> mock;
 // Stub a method to return a value once
 When(mock[&SomeInterface::foo]).Return(1);
 
