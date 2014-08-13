@@ -4,6 +4,7 @@
 * [Spying](#spying)
 * [Reset Mock to Initial State](#reset-mock-to-initial-state)
 * [Inheritance & Dynamic Casting](#inheritance--dynamic-casting)
+* [Mocking Overloaded Methods](#mocking-overloaded-methods)
 
 FakeIt is designed for simplicity and expressiveness. This design goal is achieved by using many of C++11 language features, including Variadic templates, Lambda expressions & User-defined literals and more.
 Some of these C++11 features (like User-defined literals) are not fully supported by MS Visual Studio. If you need to compile your code with MSVC++ or you need to support both GCC & MSVC++ please refer to the [MSC++ Quickstart](Quickstart-MSC).
@@ -323,4 +324,27 @@ cout << b.foo(); // prints 0
 
 C& c = dynamic_cast<C&>(a); // downcast to C&
 cout << c.foo(); // prints 0
+```
+## Mocking Overloaded Methods
+The following example code demonstrates mocking of overloaded methods:
+```C++
+struct SomeInterface {
+  virtual int func() = 0;
+  virtual int func(int) = 0;
+  virtual int func(int, std::string) = 0;
+};
+
+Mock<SomeInterface> mock;
+int (SomeInterface::*void_arg)() = &SomeInterface::func;
+int (SomeInterface::*int_arg)(int) = &SomeInterface::func;
+int (SomeInterface::*int_string_arg)(int, std::string) = &SomeInterface::func;
+
+When(mock[void_arg]).Return(1);
+When(mock[int_arg]).Return(2);
+When(mock[int_string_arg]).Return(3);
+
+SomeInterface& i = mock.get();
+cout << i.func();     // will print 1
+cout << i.func(1);    // will print 2
+cout << i.func(1,""); // will print 3
 ```
