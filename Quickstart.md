@@ -48,7 +48,7 @@ When(Method(mock,foo).Using(1)).AlwaysReturn(100); // override only for 'foo(1)'
 
 // The next two lines do exactly the same
 When(Method(mock,foo).Using(1)).AlwaysReturn(0);
-mock[Method(mock,foo).Using(1) = 0;
+Method(mock,foo).Using(1) = 0;
 ```
 **Can I stub a method to throw an exception?**
 ```C++
