@@ -100,7 +100,7 @@ Verify(Method(mock,foo)).AtLeastOnce();
 Verify(Method(mock,foo)).AtLeast(1);
 Verify(Method(mock,foo)).AtLeast(1_Time);
 
-// Verify foo was invoked at exactly 3 times. (The next two lines do exactly the same)
+// Verify foo was invoked exactly 3 times. (The next two lines do exactly the same)
 Verify(Method(mock,foo)).Exactly(3);
 Verify(Method(mock,foo)).Exactly(3_Times);
 
