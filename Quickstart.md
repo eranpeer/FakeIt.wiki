@@ -66,6 +66,9 @@ When(Method(mock,foo)).AlwaysThrow(exception());
 // Do whatever you want using lambda expressions
 When(Method(mock,foo)).Do([](int a)->int{ ... });
 When(Method(mock,foo)).AlwaysDo([](int a)->int{ ... });
+
+When(Method(mock,foo)).AlwaysDo([](auto a){ ... }); // C++14
+
 ```
 ## Invocation Matching
 ```C++
@@ -80,6 +83,9 @@ When(Method(mock,foo).Matching(agrument_a_is_negative)).Throw(exception());
 // Stub bar to throw exception only when argument 'a' is bigger than argument 'b'.
 auto a_is_bigger_than_b = [](int a, int b){return a > b;};
 When(Method(mock,bar).Matching(a_is_bigger_than_b)).Throw(exception());
+// Or:
+When(Method(mock,bar).Matching([](auto a, auto b){return a > b;})).Throw(exception()); // C++14
+
 ```
 
 ## Verification
@@ -93,6 +99,7 @@ SomeInterface & i = mock.get();
 i.foo(1);
 i.foo(2);
 i.foo(3);
+i.bar(2,1);
 
 // Verify foo was invoked at least once. (The four lines do exactly the same)
 Verify(Method(mock,foo));
@@ -107,6 +114,12 @@ Verify(Method(mock,foo)).Exactly(3_Times);
 // Verify foo(1) was invoked exactly once
 Verify(Method(mock,foo).Using(1)).Once();
 Verify(Method(mock,foo).Using(1)).Exactly(Once);
+
+// Verify bar(a>b) was invoked exactly once
+Verify(Method(mock,bar).Matching([](int a, int b){return a > b;})).Exactly(Once);
+// Or
+Verify(Method(mock,bar).Matching([](auto a, auto b){return a > b;})).Exactly(Once);// C++14
+
 ```
 **Wow, can I verify the order of invocations too?**
 ```C++
