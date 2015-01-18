@@ -1,5 +1,6 @@
 * [Stubbing](#stubbing)
 * [Invocation Matching](#invocation-matching)
+* [Argument Matching](#argument-matching)
 * [Verification](#verification)
 * [Spying](#spying)
 * [Reset Mock to Initial State](#reset-mock-to-initial-state)
@@ -71,6 +72,7 @@ When(Method(mock,foo)).AlwaysDo([](auto a){ ... });
 
 ```
 ## Argument Matching
+```C++
 // Stub foo to return 1 only when:  arg > 1.
 When(Method(mock,foo).Using(Gt(1)).Return(1);
 
@@ -95,7 +97,7 @@ When(Method(mock,foo).Using(1).Return(1);
 // The following 2 lines do exactly the same
 When(Method(mock,foo).Using(Any<int>()).Return(1);
 When(Method(mock,foo).Using(_).Return(1);
-
+```
 ## Invocation Matching
 How to I match only the invocations where argument 'a' is bigger than argument 'b'?
 In these cases argument matching is not powerful enough since every argument matcher is limited only to one argument. In these cases we need Invocation Matching. Here is how it works:
