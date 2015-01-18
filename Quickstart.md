@@ -97,6 +97,12 @@ When(Method(mock,foo).Using(1).Return(1);
 // The following 2 lines do exactly the same
 When(Method(mock,foo).Using(Any<int>()).Return(1);
 When(Method(mock,foo).Using(_).Return(1);
+
+// Stub bar to return 1 when arg1 == 1 and arg2 is any int.
+// The following 3 lines do exactly the same:
+When(Method(mock,foo).Using(1, _).Return(1);
+When(Method(mock,foo).Using(1, Any<int>()).Return(1);
+When(Method(mock,foo).Using(Eq(1), _).Return(1);
 ```
 ## Invocation Matching
 How to I match only the invocations where argument 'a' is bigger than argument 'b'?
