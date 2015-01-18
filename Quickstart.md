@@ -70,7 +70,35 @@ When(Method(mock,foo)).AlwaysDo([](int a)->int{ ... });
 When(Method(mock,foo)).AlwaysDo([](auto a){ ... }); 
 
 ```
+## Argument Matching
+// Stub foo to return 1 only when:  arg > 1.
+When(Method(mock,foo).Using(Gt(1)).Return(1);
+
+// Stub foo to return 1 only when:  arg >= 1.
+When(Method(mock,foo).Using(Ge(1)).Return(1);
+
+// Stub foo to return 1 only when:  arg < 1.
+When(Method(mock,foo).Using(Lt(1)).Return(1);
+
+// Stub foo to return 1 only when:  arg <= 1.
+When(Method(mock,foo).Using(Le(1)).Return(1);
+
+// Stub foo to return 1 only when:  arg != 1.
+When(Method(mock,foo).Using(Ne(1)).Return(1);
+
+// Stub foo to return 1 only when:  arg == 1.
+// The following 2 lines do exactly the same
+When(Method(mock,foo).Using(Eq(1)).Return(1);
+When(Method(mock,foo).Using(1).Return(1);
+
+// Stub foo to return 1 for any value.
+// The following 2 lines do exactly the same
+When(Method(mock,foo).Using(Any<int>()).Return(1);
+When(Method(mock,foo).Using(_).Return(1);
+
 ## Invocation Matching
+How to I match only the invocations where argument 'a' is bigger than argument 'b'?
+In these cases argument matching is not powerful enough since every argument matcher is limited only to one argument. In these cases we need Invocation Matching. Here is how it works:
 ```C++
 // Stub foo to return 1 only when argument 'a' is even.
 auto agrument_a_is_even = [](int a){return a%2==0;};
