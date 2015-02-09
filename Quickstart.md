@@ -69,7 +69,15 @@ When(Method(mock,foo)).Do([](int a)->int{ ... });
 When(Method(mock,foo)).AlwaysDo([](int a)->int{ ... });
 // Or, with C++14:
 When(Method(mock,foo)).AlwaysDo([](auto a){ ... }); 
-
+```
+**Can I stub the destructor?**
+Sure, you can stub a virtual destructor:
+```C++
+struct SomeInterface {
+   virtual ~SomeInterface() = 0;
+};
+Mock<SomeInterface> mock;
+When(Dtor(mock)).Do([](){ ... });
 ```
 ## Argument Matching
 ```C++
@@ -375,6 +383,7 @@ C& c = dynamic_cast<C&>(a); // downcast to C&
 cout << c.foo(); // prints 0
 ```
 ## Mocking Overloaded Methods
+When mocking an overloded method all you have to do is to specify the prototype of the method.
 The following example code demonstrates mocking of overloaded methods:
 ```C++
 struct SomeInterface {
@@ -384,13 +393,13 @@ struct SomeInterface {
 };
 
 Mock<SomeInterface> mock;
-int (SomeInterface::*void_arg)() = &SomeInterface::func;
-int (SomeInterface::*int_arg)(int) = &SomeInterface::func;
-int (SomeInterface::*int_string_arg)(int, std::string) = &SomeInterface::func;
 
-When(mock[void_arg]).Return(1);
-When(mock[int_arg]).Return(2);
-When(mock[int_string_arg]).Return(3);
+//stub the func with prototype: int()
+When(OverloadedMethod(mock,func, int()) ).Return(1); 
+//stub the func with prototype: int(int)
+When(OverloadedMethod(mock,func, int(int)) ).Return(2); 
+//stub the func with prototype: int(int,std::string)
+When(OverloadedMethod(mock,func, int(int, std::string)) ).Return(3);
 
 SomeInterface& i = mock.get();
 cout << i.func();     // will print 1
