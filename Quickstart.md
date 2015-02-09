@@ -71,6 +71,7 @@ When(Method(mock,foo)).AlwaysDo([](int a)->int{ ... });
 When(Method(mock,foo)).AlwaysDo([](auto a){ ... }); 
 ```
 **Can I stub the destructor?**
+
 Sure, you can stub a virtual destructor:
 ```C++
 struct SomeInterface {
