@@ -1,3 +1,4 @@
+* [Includes](#includes)
 * [Stubbing](#stubbing)
 * [Invocation Matching](#invocation-matching)
 * [Argument Matching](#argument-matching)
@@ -10,6 +11,13 @@
 FakeIt is designed for simplicity and expressiveness. This design goal is achieved by using many of C++11 language features, including Variadic templates, Lambda expressions & User-defined literals and more.
 Some of these C++11 features (like User-defined literals) are not fully supported by MS Visual Studio. If you need to compile your code with MSVC++ or you need to support both GCC & MSVC++ please refer to the [MSC++ Quickstart](Quickstart-MSC).
 
+## Includes
+You should include the following headers in your test file:
+```C++
+#include <fakeit_instance.hpp>
+#include <fakeit/fakeit_root.hpp>
+```
+## Stubbing
 Assuming we have the following interface:
 ```C++
 struct SomeInterface {
@@ -17,7 +25,6 @@ struct SomeInterface {
    virtual int bar(int,int) = 0;
 };
 ```
-## Stubbing
 ```C++
 Mock<SomeInterface> mock;
 // Stub a method to return a value once
