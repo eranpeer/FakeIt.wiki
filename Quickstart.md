@@ -14,8 +14,7 @@ Some of these C++11 features (like User-defined literals) are not fully supporte
 ## Includes
 You should include the following headers in your test file:
 ```C++
-#include <fakeit_instance.hpp>
-#include <fakeit/fakeit_root.hpp>
+#include <fakeit.hpp>
 ```
 ## Stubbing
 Assuming we have the following interface:
