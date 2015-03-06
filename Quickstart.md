@@ -9,7 +9,7 @@
 * [Mocking Overloaded Methods](#mocking-overloaded-methods)
 
 FakeIt is designed for simplicity and expressiveness. This design goal is achieved by using many of C++11 language features, including Variadic templates, Lambda expressions & User-defined literals and more.
-Some of these C++11 features (like User-defined literals) are not fully supported by MS Visual Studio. If you need to compile your code with MSVC++ or you need to support both GCC & MSVC++ please refer to the [MSC++ Quickstart](Quickstart-MSC).
+Some of these C++11 features (like User-defined literals) are not fully supported by MS Visual Studio 2013. If you need to compile your code with MSVC2013 please refer to the [MSC++ Quickstart](Quickstart-MSC). If your using VS2015, GCC or Clang this Quickstart is good for you.
 
 ## Includes
 You should include the following headers in your test file:
