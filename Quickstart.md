@@ -390,7 +390,7 @@ C& c = dynamic_cast<C&>(a); // downcast to C&
 cout << c.foo(); // prints 0
 ```
 ## Mocking Overloaded Methods
-When mocking an overloded method all you have to do is to specify the prototype of the method.
+When mocking an overloaded method all you have to do is to specify the prototype of the method.
 The following example code demonstrates mocking of overloaded methods:
 ```C++
 struct SomeInterface {
@@ -412,4 +412,24 @@ SomeInterface& i = mock.get();
 cout << i.func();     // will print 1
 cout << i.func(1);    // will print 2
 cout << i.func(1,""); // will print 3
+```
+Mocking const overloaded methods is accomplished similarly:
+```C++
+struct SomeInterface {
+  virtual int func(int) = 0;
+  virtual int func(int) const = 0;
+};
+
+Mock<SomeInterface> mock;
+
+//stub the func with prototype: int(int)
+When(OverloadedMethod(mock,func, int(int)) ).Return(1);
+//stub the const func with prototype: int(int)
+When(ConstOverloadedMethod(mock,func, int(int)) ).Return(2);
+
+      SomeInterface& v = mock.get();
+const SomeInterface& c = mock.get();
+
+cout << v.func(1);    // will print 1
+cout << c.func(1);    // will print 2
 ```
