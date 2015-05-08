@@ -16,6 +16,10 @@ You should include the following headers in your test file:
 ```C++
 #include <fakeit.hpp>
 ```
+You may also want to add:
+```C++
+using namespace fakeit;
+```
 ## Stubbing
 Assuming we have the following interface:
 ```C++
