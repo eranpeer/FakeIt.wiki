@@ -178,7 +178,7 @@ Verify(Method(mock,bar).Matching([](auto a, auto b){return a > b;})).Exactly(Onc
 ```
 **Wow, can I verify the order of invocations too?**
 ```C++
-// Verify foo(1) was invoked before foo(3)
+// Verify foo(1) was invoked anywhere before foo(3)
 Verify(Method(mock,foo).Using(1), Method(mock,foo).Using(3));
 ```
 **What about an exact sequence? Can I verify an exact sequence of invocations?**
