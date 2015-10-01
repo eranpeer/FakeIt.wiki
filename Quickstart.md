@@ -125,6 +125,7 @@ When(Method(mock,foo).Using(Eq(1), _).Return(1);
 ```
 ## Invocation Matching
 **How do I match only the invocations where argument 'a' is bigger than argument 'b'?**
+
 In these cases argument matching is not powerful enough since every argument matcher is limited only to one argument. What we need here is Invocation Matching. Here is how it works:
 ```C++
 // Stub foo to return 1 only when argument 'a' is even.
