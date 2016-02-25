@@ -117,7 +117,7 @@ When(Method(mock,foo).Using(1).Return(1);
 When(Method(mock,foo).Using(Any<int>()).Return(1);
 When(Method(mock,foo).Using(_).Return(1);
 
-// Stub bar to return 1 when arg1 == 1 and arg2 is any int.
+// Stub foo to return 1 when arg1 == 1 and arg2 is any int.
 // The following 3 lines do exactly the same:
 When(Method(mock,foo).Using(1, _).Return(1);
 When(Method(mock,foo).Using(1, Any<int>()).Return(1);
@@ -129,12 +129,12 @@ When(Method(mock,foo).Using(Eq(1), _).Return(1);
 In these cases argument matching is not powerful enough since every argument matcher is limited only to one argument. What we need here is Invocation Matching. Here is how it works:
 ```C++
 // Stub foo to return 1 only when argument 'a' is even.
-auto agrument_a_is_even = [](int a){return a%2==0;};
-When(Method(mock,foo).Matching(agrument_a_is_even)).Return(1);
+auto argument_a_is_even = [](int a){return a%2==0;};
+When(Method(mock,foo).Matching(argument_a_is_even)).Return(1);
 
 // Throw exception only when argument 'a' is negative.
-auto agrument_a_is_negative = [](int a){return a < 0;};
-When(Method(mock,foo).Matching(agrument_a_is_negative)).Throw(exception());
+auto argument_a_is_negative = [](int a){return a < 0;};
+When(Method(mock,foo).Matching(argument_a_is_negative)).Throw(exception());
 
 // Stub bar to throw exception only when argument 'a' is bigger than argument 'b'.
 auto a_is_bigger_than_b = [](int a, int b){return a > b;};
