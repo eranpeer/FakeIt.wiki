@@ -1,5 +1,6 @@
 * [Includes](#includes)
 * [Stubbing](#stubbing)
+* [Faking](#Faking)
 * [Invocation Matching](#invocation-matching)
 * [Argument Matching](#argument-matching)
 * [Verification](#verification)
@@ -89,6 +90,37 @@ struct SomeInterface {
 };
 Mock<SomeInterface> mock;
 When(Dtor(mock)).Do([](){ ... });
+```
+## Faking
+In many cases we stub methods to simply do nothing. You can do that by explicitly stubbing the methods to a do-nothing behavior or you can simply use Faking.
+```C++
+struct SomeInterface {
+   virtual void foo(int) = 0;
+   virtual int bar(int,int) = 0;
+   virtual ~SomeInterface() = 0;
+};
+Mock<SomeInterface> mock;
+```
+```C++
+// Following 3 lines do exactly the same:
+Fake(Method(mock,foo)); 
+When(Method(mock,foo)).AlwaysReturn(); 
+When(Method(mock,foo)).AlwaysDo([](...){}); 
+
+// And here is another example:
+Fake(Method(mock,bar)); 
+When(Method(mock,bar)).AlwaysReturn(0); 
+When(Method(mock,bar)).AlwaysDo([](...){return 0;}); 
+```
+It is also possible to Fake multiple methods in one line with the syntax **Fake(method1, method2, ...)**:
+```C++
+Fake(Method(mock,foo), Method(mock,bar));
+```
+**Cool, can I fake the destructor?**
+
+Sure, simply write:
+```C++
+Fake(Dtor(mock)); // same as When(Dtor(mock)).AlwaysDo([](){});
 ```
 ## Argument Matching
 ```C++
