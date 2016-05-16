@@ -1,6 +1,6 @@
 * [Includes](#includes)
 * [Stubbing](#stubbing)
-* [Faking](#Faking)
+* [Faking](#faking)
 * [Invocation Matching](#invocation-matching)
 * [Argument Matching](#argument-matching)
 * [Verification](#verification)
