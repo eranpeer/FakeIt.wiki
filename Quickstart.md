@@ -112,7 +112,9 @@ Fake(Method(mock,bar));
 When(Method(mock,bar)).AlwaysReturn(0); 
 When(Method(mock,bar)).AlwaysDo([](...){return 0;}); 
 ```
-It is also possible to Fake multiple methods in one line with the syntax **Fake(method1, method2, ...)**:
+It is also possible to Fake multiple methods in one line with the syntax:
+
+*Fake(method1, method2, ...)*
 ```C++
 Fake(Method(mock,foo), Method(mock,bar));
 ```
