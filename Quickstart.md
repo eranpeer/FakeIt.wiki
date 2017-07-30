@@ -376,6 +376,7 @@ SomeClass obj;
 Mock<SomeClass> spy(obj);
 
 When(Method(spy, func1)).AlwaysReturn(10); // Override to return 10
+Spy(Method(spy, func2)); // Spying func2 with changing any behavior
 
 SomeClass& i = spy.get();
 cout << i.func1(1); // will print 10. 
