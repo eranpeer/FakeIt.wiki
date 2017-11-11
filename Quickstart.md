@@ -388,6 +388,10 @@ In most cases you will need to reset the mock objects to the initial state befor
 ```C++
 mock.Reset();
 ```
+You can also keep the stubbing and clear only the collected invocation data by:
+```C++
+mock.ClearInvocationHistory();
+```
 ## Inheritance & Dynamic Casting
 ```C++
 struct A {
