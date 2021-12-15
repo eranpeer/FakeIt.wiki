@@ -27,6 +27,7 @@ Assuming we have the following interface:
 struct SomeInterface {
    virtual int foo(int) = 0;
    virtual int bar(int,int) = 0;
+   virtual int baz(int*,int&) = 0;
 };
 ```
 ```C++
@@ -72,6 +73,18 @@ When(Method(mock,foo)).Throw(exception(),exception());
 When(Method(mock,foo)).Throw(23_Times(exception()));
 // Always throw
 When(Method(mock,foo)).AlwaysThrow(exception());
+```
+**What about assigning value to output parameters?**
+```C++
+// Stub a method to assign value to output parameters & return a value once
+// Calling i.baz(&a, b) will return 1, and 2 & 3 will be assigned to a & b
+When(mock[&SomeInterface::baz]).Set(1, 2, 3);
+
+// Stub multiple assignments
+When(mock[&SomeInterface::baz]).Set(1, 2, 3).Set(4, 5, 6);
+
+// Always assign & return specified values
+When(mock[&SomeInterface::baz]).AlwaysSet(1, 2, 3);
 ```
 **Nice, but sometimes I need something more freestyle**
 ```C++
