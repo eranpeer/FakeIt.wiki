@@ -74,17 +74,25 @@ When(Method(mock,foo)).Throw(23_Times(exception()));
 // Always throw
 When(Method(mock,foo)).AlwaysThrow(exception());
 ```
-**What about assigning value to output parameters?**
+**What about assigning value to output parameters? (TBA)**
 ```C++
 // Stub a method to assign value to output parameters & return a value once
 // Calling i.baz(&a, b) will return 1, and 2 & 3 will be assigned to a & b
-When(mock[&SomeInterface::baz]).Set(1, 2, 3);
+When(mock[&SomeInterface::baz]).ReturnAndSet(1, 2, 3);
 
 // Stub multiple assignments
-When(mock[&SomeInterface::baz]).Set(1, 2, 3).Set(4, 5, 6);
+When(mock[&SomeInterface::baz]).ReturnAndSet(1, 2, 3).ReturnAndSet(4, 5, 6);
+
+// Stub partial assignments
+// Will assign 2 to a, but will leave b unmodified
+When(mock[&SomeInterface::baz]).ReturnAndSet(1, 2)
 
 // Always assign & return specified values
-When(mock[&SomeInterface::baz]).AlwaysSet(1, 2, 3);
+When(mock[&SomeInterface::baz]).AlwaysReturnAndSet(1, 2, 3);
+
+// Selectively assign to arguments, using either std::placeholders or fakeit::placeholders
+When(mock[&SomeInterface::baz]).ReturnAndSet(1, _1 <= 2, _2 <= 3);
+When(mock[&SomeInterface::baz]).AlwaysReturnAndSet(1, _2 <= 5);
 ```
 **Nice, but sometimes I need something more freestyle**
 ```C++
