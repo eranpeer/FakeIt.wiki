@@ -85,7 +85,7 @@ When(Method(mock,baz)).ReturnAndSet(1, 2, 3).ReturnAndSet(4, 5, 6);
 
 // Stub partial assignments
 // Will assign 2 to a, but will leave b unmodified
-When(Method(mock,baz)).ReturnAndSet(1, 2)
+When(Method(mock,baz)).ReturnAndSet(1, 2);
 
 // Always assign & return specified values
 When(Method(mock,baz)).AlwaysReturnAndSet(1, 2, 3);
