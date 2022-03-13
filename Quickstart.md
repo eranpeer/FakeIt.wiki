@@ -74,7 +74,7 @@ When(Method(mock,foo)).Throw(23_Times(exception()));
 // Always throw
 When(Method(mock,foo)).AlwaysThrow(exception());
 ```
-**What about assigning value to output parameters? (TBA)**
+**What about assigning value to output parameters?**
 ```C++
 // Stub a method to assign value to output parameters & return a value once
 // Calling i.baz(&a, b) will return 1, and 2 & 3 will be assigned to a & b
