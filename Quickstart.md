@@ -331,6 +331,15 @@ Verify(Method(mock,bar)); // verify bar was invoked (with any arguments)
 // Will pass since foo(1) & foo(2) & bar("some string") are now verified.
 VerifyNoOtherInvocations(mock);.
 ```
+#### Ignore invocations of trivial methods
+If you want to ignore the invocations of some trivial methods (e.g. getters) during verification:
+```C++
+// the following will pass if important_method was called exactly 3 times and will not care about the calls of trivial_getter
+Verify(Method(mock,important_method)).Exactly(3);
+Verify(Method(mock,trivial_getter).Any());
+VerifyNoOtherInvocations(mock);
+
+```
 ### Verification Scoping
 Verification Scoping is the method of explicitly specifying the set of actual invocations used to verify a sequence.
 
