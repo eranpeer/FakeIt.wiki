@@ -1,8 +1,8 @@
 * [Includes](#includes)
 * [Stubbing](#stubbing)
 * [Faking](#faking)
-* [Invocation Matching](#invocation-matching)
 * [Argument Matching](#argument-matching)
+* [Invocation Matching](#invocation-matching)
 * [Verification](#verification)
 * [Spying](#spying)
 * [Reset Mock to Initial State](#reset-mock-to-initial-state)
@@ -177,6 +177,11 @@ When(Method(mock,foo).Using(_).Return(1);
 When(Method(mock,foo).Using(1, _)).Return(1);
 When(Method(mock,foo).Using(1, Any<int>())).Return(1);
 When(Method(mock,foo).Using(Eq(1), _)).Return(1);
+
+// If the argument you're trying to match is a C string you can use matchers that depend on strcmp.
+// Stub foostr to return 1 only when:  strcmp(arg, "something") == 0.
+When(Method(mock,foostr).Using(StrEq("something")).Return(1);
+// There is also StrGt, StrGe, StrLt, StrLe, StrNe, which are all equivalent to their non-Str part, but using strcmp instead of comparison operators.
 ```
 ## Invocation Matching
 **How do I match only the invocations where argument 'a' is bigger than argument 'b'?**
