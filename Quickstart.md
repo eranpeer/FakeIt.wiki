@@ -334,14 +334,14 @@ Verify(Method(mock,bar)); // verify bar was invoked (with any arguments)
 
 // Verify no other invocations of any method of mock. 
 // Will pass since foo(1) & foo(2) & bar("some string") are now verified.
-VerifyNoOtherInvocations(mock);.
+VerifyNoOtherInvocations(mock);
 ```
 #### Ignore invocations of trivial methods
 If you want to ignore the invocations of some trivial methods (e.g. getters) during verification:
 ```C++
 // the following will pass if important_method was called exactly 3 times and will not care about the calls of trivial_getter
 Verify(Method(mock,important_method)).Exactly(3);
-Verify(Method(mock,trivial_getter).Any());
+Verify(Method(mock,trivial_getter)).Any();
 VerifyNoOtherInvocations(mock);
 
 ```
