@@ -167,6 +167,9 @@ When(Method(mock,foo).Using(Ne(1)).Return(1);
 When(Method(mock,foo).Using(Eq(1)).Return(1);
 When(Method(mock,foo).Using(1)).Return(1);
 
+// For floating point values, stub foo to return 1 when the arg is 1 +/- 0.05.
+When(Method(mock,foo).Using(ApproxEq(1, 0.05)).Return(1);
+
 // Stub foo to return 1 for any value.
 // The following 2 lines do exactly the same
 When(Method(mock,foo).Using(Any<int>()).Return(1);
