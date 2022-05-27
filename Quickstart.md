@@ -421,6 +421,8 @@ cout << i.func1(1); // will print 10.
 cout << i.func2(1); // func2 is not stubbed.
 ```
 In general, all stubbing & verifying features work on spy objects the same way they work on mock objects.
+
+**WARNING**: `Spy()` will copy the parameters of the function to be able to compare them later in the `Verify()` process. If you have move-only parameters, or you don't want them to be copied, use `SpyWithoutVerify()` instead. It will forward the parameters, effectively moving them if they were passed by value, thus making them unusable later for the `Verify()` process.
 ## Reset Mock to Initial State
 In most cases you will need to reset the mock objects to the initial state before/after each test method. To do that simply add the following line for each mock object to the setup/teardown code of your tests.
 ```C++
