@@ -172,13 +172,13 @@ When(Method(mock,foo).Using(ApproxEq(1, 0.00005)).Return(1);
 
 // Stub foo to return 1 for any value.
 // The following 2 lines do exactly the same
-When(Method(mock,foo).Using(Any<int>()).Return(1);
+When(Method(mock,foo).Using(Any()).Return(1);
 When(Method(mock,foo).Using(_).Return(1);
 
 // Stub foo to return 1 when arg1 == 1 and arg2 is any int.
 // The following 3 lines do exactly the same:
 When(Method(mock,foo).Using(1, _)).Return(1);
-When(Method(mock,foo).Using(1, Any<int>())).Return(1);
+When(Method(mock,foo).Using(1, Any())).Return(1);
 When(Method(mock,foo).Using(Eq(1), _)).Return(1);
 
 // If the argument you're trying to match is a C string you can use matchers that depend on strcmp.
