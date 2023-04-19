@@ -517,3 +517,5 @@ const SomeInterface& c = mock.get();
 cout << v.func(1);    // will print 1
 cout << c.func(1);    // will print 2
 ```
+
+There is also `RefOverloadedMethod`, `ConstRefOverloadedMethod`, `RValRefOverloadedMethod` and `ConstRValRefOverloadedMethod` which are used for reference-qualified overloads.
