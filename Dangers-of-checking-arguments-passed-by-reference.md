@@ -1,4 +1,4 @@
-# _<ins>**THIS PAGE HAS BEEN REMOVED BECAUSE THERE IS AN ONGOING DISCUSSION ON AN ELSEWHERE**</ins>_
+# _<ins>**THIS PAGE HAS BEEN REMOVED BECAUSE THERE IS AN ONGOING DISCUSSION ELSEWHERE**</ins>_
 
 For up to date information about this subject, check out this issue: https://github.com/eranpeer/FakeIt/issues/274
 
