@@ -112,6 +112,24 @@ struct SomeInterface {
 Mock<SomeInterface> mock;
 When(Dtor(mock)).Do([](){ ... });
 ```
+**How are parameters stored in the mock?**
+
+When you use `.Return(obj)` or `.AlwaysReturn(obj)` to stub a function that returns a reference, the mock will capture a reference to the object you passed by parameter to `Return`. If the function you want to stub doesn't return a reference (it returns a value), then the mock will capture the parameter of `Return` by value (either by copying or moving it, depending on how it was passed).
+
+This behavior can be changed with the functions `ReturnValCapt` / `ReturnRefCapt` (or their "`AlwaysReturn`" equivalent):
+```C++
+struct SomeInterface {
+   virtual std::string returnVal() = 0;
+   virtual const std::string& returnRef() = 0;
+};
+Mock<SomeInterface> mock;
+std::string str = "hello";
+When(Method(mock,returnVal)).ReturnRefCapt(str);
+When(Method(mock,returnRef)).ReturnValCapt(str);
+str = "world";
+mock.get().returnVal(); // Will return "world", because str was captured by reference so the mock can see its updated value when the function is called.
+mock.get().returnRef(); // Will return "hello", because str was captured by value (a copy of it was made in the mock), changes to the original str won't be seen.
+```
 ## Faking
 In many cases we stub methods to simply do nothing. You can do that by explicitly stubbing the methods to a do-nothing behavior or you can simply use Faking.
 ```C++
